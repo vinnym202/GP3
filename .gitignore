@@ -1,0 +1,6 @@
+/.venv
+gp3/config_private.py
+__pycache__/
+/gp2_testing
+/test_data
+/train_data
