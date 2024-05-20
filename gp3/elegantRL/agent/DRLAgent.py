@@ -89,7 +89,7 @@ class DRLAgent:
         
         # load agent
         try:  
-            actor_path = cwd + '/actor_model_avgR.pth'
+            actor_path = cwd + '/actor_model.pth'
             print(f"| Loading actor from: {actor_path}")
             actor = torch.load(actor_path, map_location=lambda storage, loc: storage)
             actor.eval()  # set to evaluation mode

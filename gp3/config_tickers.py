@@ -1,8 +1,8 @@
 SINGLE_TICKER = ["TQQQ"]
 
 GP3_TICKERS = [
-    "IVV",
-    "AGG",
+    "SQQQ",
+    "TQQQ",
 ]
 
 # Dow 30 constituents in 2021/10

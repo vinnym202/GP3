@@ -78,8 +78,8 @@ class Config:
         self.if_save_buffer = False  # if save the replay buffer for continuous training after stop training
 
         self.save_gap = int(1)  # save actor f"{cwd}/act_*.pth" for learning curve.
-        self.eval_times = int(1)  # number of times that get the average episodic cumulative return
-        self.eval_per_step = int(1e4)  # evaluate the agent per training steps
+        self.eval_times = int(2)  # number of times that get the average episodic cumulative return
+        self.eval_per_step = int(2e4)  # evaluate the agent per training steps
         self.eval_env_class = None  # eval_env = eval_env_class(*eval_env_args)
         self.eval_env_args = None  # eval_env = eval_env_class(*eval_env_args)
 

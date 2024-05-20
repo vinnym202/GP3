@@ -10,11 +10,11 @@ class StockTradingEnv(gym.Env):
         config,
         turbulence_thresh=99,
         max_stock=None,
-        min_stock_rate=0.1,
+        min_stock_rate=0.25,
         initial_capital=1e5,
         initial_stocks=None,
         gpu_id: int = 0,
-        num_envs=32,
+        num_envs=1,
     ):
         price_ary = config["price_array"]
         tech_ary = config["tech_array"]
@@ -75,7 +75,7 @@ class StockTradingEnv(gym.Env):
         self.if_train = if_train
         self.if_discrete = False
         self.observation_space = gym.spaces.Box(
-            low=-3000, high=3000, shape=(self.state_dim,), dtype=np.float32
+            low=-np.inf, high=np.inf, shape=(self.state_dim,), dtype=np.float32
         )
         self.action_space = gym.spaces.Box(
             low=-1, high=1, shape=(self.action_dim,), dtype=np.float32
@@ -120,7 +120,7 @@ class StockTradingEnv(gym.Env):
         if self.turbulence_bool[self.current_step] == 0:
             
             # Sell Logic
-            for index in np.where((action < -min_action) & (self.stocks_cool_down > 0))[0]:
+            for index in np.where((action < -min_action) & (self.stocks_cool_down > 25))[0]:
                 if price[index] > 0:
                     sell_num_shares = min(self.stocks[index], -action[index])
                     sell_value = price[index] * sell_num_shares
@@ -129,7 +129,7 @@ class StockTradingEnv(gym.Env):
                     self.stocks_cool_down[index] = 0
 
             # Buy Logic
-            for index in np.where((action > min_action) & (self.stocks_cool_down > 0))[0]:
+            for index in np.where((action > min_action) & (self.stocks_cool_down > 25))[0]:
                 if price[index] > 0:
                     buy_num_shares = min(self.cash // price[index], action[index])
                     buy_value = price[index] * buy_num_shares
